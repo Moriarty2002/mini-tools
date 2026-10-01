@@ -1,0 +1,6 @@
+{
+  "name": "MiniTools Hub",
+  "description": "Modular, lightweight utility hub featuring a high-precision Price per Kg & Weight Cost Calculator, instant command palette search, and zero-overhead architecture ready for GitHub Pages hosting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
