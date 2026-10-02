@@ -22,10 +22,9 @@ const AppContent: React.FC = () => {
     }
   }, [toolSlug, recordToolUsage]);
 
-  // Global keyboard shortcut for Command Palette (Cmd+K / Ctrl+K / slash)
+  // Global keyboard shortcut for Command Palette (Ctrl+K / Win+K / /)
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
-      // Don't intercept if user is typing in an input/textarea
       const target = e.target as HTMLElement;
       const isInput =
         target.tagName === 'INPUT' ||
@@ -33,7 +32,7 @@ const AppContent: React.FC = () => {
         target.tagName === 'SELECT' ||
         target.isContentEditable;
 
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setIsCommandPaletteOpen((prev) => !prev);
       } else if (e.key === '/' && !isInput) {
@@ -65,13 +64,13 @@ const AppContent: React.FC = () => {
       />
 
       {/* Main Viewport Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pt-6">
+      <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 pt-4 pb-12">
         {activeTool && ToolComponent ? (
           <ToolComponent onNavigate={(slug) => (slug ? navigate(slug) : navigateHome())} />
         ) : toolSlug ? (
           /* 404 / Tool not found fallback */
           <div className="py-20 text-center space-y-4 max-w-md mx-auto">
-            <div className="w-12 h-12 rounded-xl bg-neutral-200 dark:bg-neutral-800 text-neutral-500 mx-auto flex items-center justify-center">
+            <div className="w-12 h-12 rounded-2xl bg-neutral-200 dark:bg-neutral-800 text-neutral-500 mx-auto flex items-center justify-center">
               <Compass className="w-6 h-6" />
             </div>
             <h2 className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
@@ -83,7 +82,7 @@ const AppContent: React.FC = () => {
             <button
               type="button"
               onClick={navigateHome}
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 text-xs font-semibold rounded-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 text-xs font-semibold rounded-full hover:opacity-90 transition-opacity"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               Back to Mini Tools Hub
@@ -97,38 +96,27 @@ const AppContent: React.FC = () => {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/50 py-6 transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 dark:text-neutral-400">
-          <div className="flex items-center gap-2">
+      {/* Clean Minimal Footer (Removed promotional/compat lines) */}
+      <footer className="border-t border-neutral-200/80 dark:border-neutral-800/80 bg-white/40 dark:bg-neutral-950/40 py-5 transition-colors">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500 dark:text-neutral-400">
+          <div className="flex items-center gap-2 font-medium">
             <span className="font-semibold text-neutral-700 dark:text-neutral-300">
               MiniTools Hub
             </span>
-            <span aria-hidden="true">·</span>
-            <span>Static Client-Side Application</span>
-            <span aria-hidden="true">·</span>
-            <span>GitHub Pages Compatible</span>
           </div>
 
           <div className="flex items-center gap-4">
             <button
               type="button"
-              onClick={() => setIsDeployModalOpen(true)}
-              className="hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-            >
-              Deploy to github.io
-            </button>
-            <button
-              type="button"
               onClick={() => setIsCommandPaletteOpen(true)}
-              className="hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+              className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors flex items-center gap-1.5 cursor-pointer font-medium"
             >
-              Quick Search (⌘K)
+              <span>Search (Ctrl+K)</span>
             </button>
             <button
               type="button"
               onClick={navigateHome}
-              className="hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+              className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer font-medium"
             >
               All Tools
             </button>

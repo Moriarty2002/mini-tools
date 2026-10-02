@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 
 interface FavoritesContextValue {
   favorites: string[];
@@ -48,31 +48,38 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   }, [recentTools]);
 
-  const isFavorite = (slug: string) => favorites.includes(slug);
+  const isFavorite = useCallback(
+    (slug: string) => favorites.includes(slug),
+    [favorites]
+  );
 
-  const toggleFavorite = (slug: string) => {
+  const toggleFavorite = useCallback((slug: string) => {
     setFavorites((prev) =>
       prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]
     );
-  };
+  }, []);
 
-  const recordToolUsage = (slug: string) => {
+  const recordToolUsage = useCallback((slug: string) => {
     setRecentTools((prev) => {
+      if (prev[0] === slug) return prev;
       const filtered = prev.filter((s) => s !== slug);
       return [slug, ...filtered].slice(0, 6);
     });
-  };
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({
+      favorites,
+      recentTools,
+      isFavorite,
+      toggleFavorite,
+      recordToolUsage,
+    }),
+    [favorites, recentTools, isFavorite, toggleFavorite, recordToolUsage]
+  );
 
   return (
-    <FavoritesContext.Provider
-      value={{
-        favorites,
-        recentTools,
-        isFavorite,
-        toggleFavorite,
-        recordToolUsage,
-      }}
-    >
+    <FavoritesContext.Provider value={contextValue}>
       {children}
     </FavoritesContext.Provider>
   );

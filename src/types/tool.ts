@@ -43,12 +43,12 @@ export interface Currency {
 }
 
 export const POPULAR_CURRENCIES: Currency[] = [
-  { code: 'USD', symbol: '$', name: 'US Dollar ($)' },
   { code: 'EUR', symbol: '€', name: 'Euro (€)' },
+  { code: 'USD', symbol: '$', name: 'US Dollar ($)' },
   { code: 'GBP', symbol: '£', name: 'British Pound (£)' },
+  { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc (CHF)' },
   { code: 'CAD', symbol: 'CA$', name: 'Canadian Dollar (CA$)' },
   { code: 'AUD', symbol: 'A$', name: 'Australian Dollar (A$)' },
   { code: 'JPY', symbol: '¥', name: 'Japanese Yen (¥)' },
-  { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc (CHF)' },
   { code: 'INR', symbol: '₹', name: 'Indian Rupee (₹)' },
 ];
